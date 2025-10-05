@@ -4085,139 +4085,133 @@ const ExoplanetFinder = () => {
         </div>
       </div>
 
-      {/* Enhanced Chatbot Component with ChatGPT Integration and Better Alignment */}
+{/* Enhanced Chatbot Component - Fixed Floating Position */}
       <div className={`fixed bottom-6 right-6 z-50 transition-all duration-300 
-        ${chatOpen && !chatMinimized ? 'w-96 h-[600px] max-h-[80vh]' : 
-          chatOpen && chatMinimized ? 'w-96 h-20' : 
+        ${chatOpen && !chatMinimized ? 'w-96 h-[600px]' : 
+          chatOpen && chatMinimized ? 'w-96 h-16' : 
           'w-auto h-auto'}
-        md:bottom-6 md:right-6 
-        bottom-4 right-4
-        ${chatOpen && !chatMinimized ? 'md:w-96 md:h-[600px] w-[calc(100vw-2rem)] h-[calc(100vh-8rem)]' : ''}
       `}>
         {chatOpen ? (
           <div className="bg-black/95 backdrop-blur-xl rounded-2xl border border-white/20 shadow-2xl h-full flex flex-col">
-            {/* Add this wrapper for better alignment */}
-            <div className="flex flex-col h-full">
-              {/* Chat Header - Improved alignment */}
-              <div className="p-4 border-b border-white/20 flex items-center justify-between">
-                <div className="flex items-center gap-3">
-                  <div className="w-10 h-10 bg-gradient-to-br from-purple-500 to-blue-500 rounded-full flex items-center justify-center shadow-lg">
-                    <Bot className="w-6 h-6 text-white" />
-                  </div>
-                  <div className="text-left">
-                    <h3 className="text-white font-bold">AI Exoplanet Assistant</h3>
-                    <div className="flex items-center gap-2">
-                      <span className="text-xs text-gray-400">AI-powered by ChatGPT</span>
-                      <button
-                        onClick={() => setAiPersonality(aiPersonality === 'professional' ? 'friendly' : 'professional')}
-                        className="text-xs px-2 py-1 bg-purple-500/20 text-purple-300 rounded-full hover:bg-purple-500/30 transition-colors"
-                      >
-                        {aiPersonality === 'professional' ? '🎓' : '😊'}
-                      </button>
-                    </div>
-                  </div>
+            {/* Chat Header */}
+            <div className="p-4 border-b border-white/20 flex items-center justify-between flex-shrink-0">
+              <div className="flex items-center gap-3">
+                <div className="w-10 h-10 bg-gradient-to-br from-purple-500 to-blue-500 rounded-full flex items-center justify-center shadow-lg">
+                  <Bot className="w-6 h-6 text-white" />
+                </div>
+                <div>
+                  <h3 className="text-white font-bold">AI Assistant</h3>
                   <div className="flex items-center gap-2">
+                    <span className="text-xs text-gray-400">ChatGPT-powered</span>
                     <button
-                      onClick={() => setChatMinimized(!chatMinimized)}
-                      className="text-gray-400 hover:text-white transition-colors p-1 rounded hover:bg-white/10"
+                      onClick={() => setAiPersonality(aiPersonality === 'professional' ? 'friendly' : 'professional')}
+                      className="text-xs px-2 py-0.5 bg-purple-500/20 text-purple-300 rounded-full hover:bg-purple-500/30 transition-colors"
                     >
-                      {chatMinimized ? <ArrowUp className="w-4 h-4" /> : <ArrowDown className="w-4 h-4" />}
-                    </button>
-                    <button
-                      onClick={() => setChatOpen(false)}
-                      className="text-gray-400 hover:text-white transition-colors p-1 rounded hover:bg-white/10"
-                    >
-                      <X className="w-5 h-5" />
+                      {aiPersonality === 'professional' ? '🎓' : '😊'}
                     </button>
                   </div>
                 </div>
-
-                {/* Chat Messages - Better alignment */}
-                {!chatMinimized && (
-                  <>
-                    <div className="flex-1 overflow-y-auto p-4 space-y-4 custom-scrollbar">
-                      {messages.map((message) => (
-                        <div
-                          key={message.id}
-                          className={`flex ${message.sender === 'user' ? 'justify-end' : 'justify-start'}`}
-                        >
-                          <div className={`max-w-[80%] p-3 rounded-xl ${
-                            message.sender === 'user'
-                              ? 'bg-purple-600/20 border border-purple-500/30'
-                              : 'bg-white/10 border border-white/20'
-                          }`}>
-                            <div className="flex items-start gap-2">
-                              {message.sender === 'bot' && <Bot className="w-5 h-5 text-purple-400 mt-0.5 flex-shrink-0" />}
-                              {message.sender === 'user' && <User className="w-5 h-5 text-blue-400 mt-0.5 flex-shrink-0" />}
-                              <div className="flex-1">
-                                <p className="text-white text-sm whitespace-pre-line">{message.text}</p>
-                                <p className="text-xs text-gray-400 mt-1">
-                                  {message.timestamp.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}
-                                </p>
-                              </div>
-                            </div>
-                          </div>
-                        </div>
-                      ))}
-                      {isTyping && (
-                        <div className="flex justify-start">
-                          <div className="bg-white/10 border border-white/20 p-3 rounded-xl">
-                            <div className="flex items-center gap-2">
-                              <Bot className="w-5 h-5 text-purple-400" />
-                              <div className="flex space-x-1">
-                                <div className="w-2 h-2 bg-gray-400 rounded-full animate-bounce" style={{ animationDelay: '0ms' }}></div>
-                                <div className="w-2 h-2 bg-gray-400 rounded-full animate-bounce" style={{ animationDelay: '150ms' }}></div>
-                                <div className="w-2 h-2 bg-gray-400 rounded-full animate-bounce" style={{ animationDelay: '300ms' }}></div>
-                              </div>
-                            </div>
-                          </div>
-                        </div>
-                      )}
-                      <div ref={messagesEndRef} />
-                    </div>
-
-                    {/* Quick Questions - Better alignment */}
-                    <div className="p-3 border-t border-white/20">
-                      <div className="flex flex-wrap gap-2 mb-3">
-                        {[
-                          "Show habitable planets",
-                          "Tell me about JWST",
-                          "How are exoplanets discovered?",
-                          "What is a biosignature?"
-                        ].map((question, index) => (
-                          <button
-                            key={index}
-                            onClick={() => handleQuickQuestion(question)}
-                            className="text-xs bg-white/10 hover:bg-white/20 text-gray-300 px-2 py-1 rounded-full transition-colors"
-                          >
-                            {question}
-                          </button>
-                        ))}
-                      </div>
-
-                      {/* Message Input - Better alignment */}
-                      <div className="flex items-center gap-2">
-                        <input
-                          type="text"
-                          value={inputMessage}
-                          onChange={(e) => setInputMessage(e.target.value)}
-                          onKeyPress={(e) => e.key === 'Enter' && handleSendMessage()}
-                          placeholder="Ask about exoplanets, telescopes, or observatories..."
-                          className="flex-1 bg-white/10 border border-white/20 rounded-lg px-3 py-2 text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-purple-500 text-sm"
-                        />
-                        <button
-                          onClick={handleSendMessage}
-                          disabled={!inputMessage.trim()}
-                          className="p-2 bg-purple-600 hover:bg-purple-700 disabled:bg-gray-600 disabled:cursor-not-allowed rounded-lg text-white transition-colors"
-                        >
-                          <Send className="w-4 h-4" />
-                        </button>
-                      </div>
-                    </div>
-                  </>
-                )}
+              </div>
+              <div className="flex items-center gap-1">
+                <button
+                  onClick={() => setChatMinimized(!chatMinimized)}
+                  className="text-gray-400 hover:text-white transition-colors p-1.5 rounded hover:bg-white/10"
+                >
+                  {chatMinimized ? <ArrowUp className="w-4 h-4" /> : <ArrowDown className="w-4 h-4" />}
+                </button>
+                <button
+                  onClick={() => setChatOpen(false)}
+                  className="text-gray-400 hover:text-white transition-colors p-1.5 rounded hover:bg-white/10"
+                >
+                  <X className="w-5 h-5" />
+                </button>
               </div>
             </div>
+
+            {/* Chat Messages */}
+            {!chatMinimized && (
+              <>
+                <div className="flex-1 overflow-y-auto p-4 space-y-4 custom-scrollbar">
+                  {messages.map((message) => (
+                    <div
+                      key={message.id}
+                      className={`flex ${message.sender === 'user' ? 'justify-end' : 'justify-start'}`}
+                    >
+                      <div className={`max-w-[85%] p-3 rounded-xl ${
+                        message.sender === 'user'
+                          ? 'bg-purple-600/20 border border-purple-500/30'
+                          : 'bg-white/10 border border-white/20'
+                      }`}>
+                        <div className="flex items-start gap-2">
+                          {message.sender === 'bot' && <Bot className="w-5 h-5 text-purple-400 mt-0.5 flex-shrink-0" />}
+                          {message.sender === 'user' && <User className="w-5 h-5 text-blue-400 mt-0.5 flex-shrink-0" />}
+                          <div className="flex-1 min-w-0">
+                            <p className="text-white text-sm whitespace-pre-line break-words">{message.text}</p>
+                            <p className="text-xs text-gray-400 mt-1">
+                              {message.timestamp.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}
+                            </p>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  ))}
+                  {isTyping && (
+                    <div className="flex justify-start">
+                      <div className="bg-white/10 border border-white/20 p-3 rounded-xl">
+                        <div className="flex items-center gap-2">
+                          <Bot className="w-5 h-5 text-purple-400" />
+                          <div className="flex space-x-1">
+                            <div className="w-2 h-2 bg-gray-400 rounded-full animate-bounce" style={{ animationDelay: '0ms' }}></div>
+                            <div className="w-2 h-2 bg-gray-400 rounded-full animate-bounce" style={{ animationDelay: '150ms' }}></div>
+                            <div className="w-2 h-2 bg-gray-400 rounded-full animate-bounce" style={{ animationDelay: '300ms' }}></div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  )}
+                  <div ref={messagesEndRef} />
+                </div>
+
+                {/* Quick Questions */}
+                <div className="p-3 border-t border-white/20 flex-shrink-0">
+                  <div className="flex flex-wrap gap-2 mb-3">
+                    {[
+                      "Show habitable planets",
+                      "Tell me about JWST",
+                      "Discovery methods",
+                      "Biosignatures"
+                    ].map((question, index) => (
+                      <button
+                        key={index}
+                        onClick={() => handleQuickQuestion(question)}
+                        className="text-xs bg-white/10 hover:bg-white/20 text-gray-300 px-2.5 py-1 rounded-full transition-colors"
+                      >
+                        {question}
+                      </button>
+                    ))}
+                  </div>
+
+                  {/* Message Input */}
+                  <div className="flex items-center gap-2">
+                    <input
+                      type="text"
+                      value={inputMessage}
+                      onChange={(e) => setInputMessage(e.target.value)}
+                      onKeyPress={(e) => e.key === 'Enter' && handleSendMessage()}
+                      placeholder="Ask about exoplanets..."
+                      className="flex-1 bg-white/10 border border-white/20 rounded-lg px-3 py-2 text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-purple-500 text-sm"
+                    />
+                    <button
+                      onClick={handleSendMessage}
+                      disabled={!inputMessage.trim()}
+                      className="p-2 bg-purple-600 hover:bg-purple-700 disabled:bg-gray-600 disabled:cursor-not-allowed rounded-lg text-white transition-colors flex-shrink-0"
+                    >
+                      <Send className="w-4 h-4" />
+                    </button>
+                  </div>
+                </div>
+              </>
+            )}
           </div>
         ) : (
           <button
@@ -4225,13 +4219,12 @@ const ExoplanetFinder = () => {
             className="w-14 h-14 bg-gradient-to-br from-purple-600 to-blue-600 rounded-full flex items-center justify-center shadow-lg hover:shadow-xl transition-all duration-200 hover:scale-110 relative"
           >
             <MessageCircle className="w-6 h-6 text-white" />
-            <div className="absolute -top-1 -right-1 w-3 h-3 bg-red-500 rounded-full animate-ping">
-              <span className="text-white text-xs font-bold">!</span>
+            <div className="absolute -top-1 -right-1 w-4 h-4 bg-red-500 rounded-full flex items-center justify-center">
+              <span className="text-white text-[10px] font-bold">!</span>
             </div>
           </button>
         )}
       </div>
-
       {/* CSS for orbital animation */}
       <style jsx>{`
         @keyframes orbit {
