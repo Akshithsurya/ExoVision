@@ -36,7 +36,7 @@ const ExoplanetFinder = () => {
   
   const itemsPerPage = 15;
 
-  // Enhanced Chat states
+  
   const [chatOpen, setChatOpen] = useState(true);
   const [messages, setMessages] = useState([
     { 
@@ -53,7 +53,7 @@ const ExoplanetFinder = () => {
   const [aiPersonality, setAiPersonality] = useState('professional');
   const messagesEndRef = useRef(null);
 
-  // OpenAI API function
+  
   const generateChatGPTResponse = async (message, context = {}) => {
     try {
       let systemPrompt = `You are an expert exoplanet and astronomy assistant with deep knowledge about space science, exoplanet research, telescopes, and astronomical discoveries. 
@@ -63,7 +63,7 @@ const ExoplanetFinder = () => {
       Provide accurate, detailed, and engaging responses. When discussing specific exoplanets, include their habitability scores, atmospheric composition, discovery details, and significance.
       Always be helpful and provide scientific insights when possible. Use emojis to make responses more engaging.`;
       
-      // Add context based on active tab
+      
       if (context.activeTab === 'catalog') {
         systemPrompt += ` The user is browsing the exoplanet catalog with ${context.totalPlanets} planets available.`;
       } else if (context.activeTab === 'observatory') {
@@ -76,7 +76,7 @@ const ExoplanetFinder = () => {
         systemPrompt += ` The user is viewing AI-powered insights and predictions.`;
       }
       
-      // Add context about selected planet
+      
       if (context.selectedPlanet) {
         systemPrompt += ` The user has selected ${context.selectedPlanet.name}, a ${context.selectedPlanet.planet_type} with a habitability score of ${context.selectedPlanet.habitability_score}, atmosphere of ${context.selectedPlanet.atmosphere}, located ${context.selectedPlanet.distance} light-years away.`;
       }
@@ -1322,7 +1322,7 @@ const ExoplanetFinder = () => {
     }
   };
 
-  // Enhanced chat with ChatGPT integration
+  
   const handleSendMessage = async () => {
     if (!inputMessage.trim()) return;
     
@@ -1338,7 +1338,7 @@ const ExoplanetFinder = () => {
     setIsTyping(true);
     
     try {
-      // Prepare context for ChatGPT
+      
       const context = {
         activeTab,
         selectedPlanet: selectedPlanet ? {
@@ -1352,7 +1352,7 @@ const ExoplanetFinder = () => {
         activeTelescopes: Object.keys(telescopes).filter(key => telescopes[key].status === 'Active').length
       };
       
-      // Call ChatGPT API
+      
       const botResponseText = await generateChatGPTResponse(inputMessage, context);
       
       const botResponse = {
@@ -1365,7 +1365,7 @@ const ExoplanetFinder = () => {
       setMessages(prev => [...prev, botResponse]);
     } catch (error) {
       console.error('ChatGPT API error:', error);
-      // Fallback to local response if API fails
+      
       const fallbackResponse = generateBotResponse(inputMessage);
       setMessages(prev => [...prev, fallbackResponse]);
     } finally {
@@ -1657,7 +1657,7 @@ const ExoplanetFinder = () => {
   const handlePlanetSelection = async (planet) => {
     setSelectedPlanet(planet);
     
-    // Add a chat message about the selected planet
+    
     const botMessage = {
       id: messages.length + 1,
       text: `🪐 I've selected ${planet.name} for you! This ${planet.planet_type} has a habitability score of ${planet.habitability_score} and is located ${planet.distance} light-years away.\n\nWould you like me to tell you more about its atmosphere, discovery method, or potential for life?`,
