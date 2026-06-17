@@ -53,3 +53,5 @@ Note: The provided App.jsx is truncated in the documentation. Ensure the full co
 
 npm run dev
 
+
+# latest the api for chatcgpt stopped working
